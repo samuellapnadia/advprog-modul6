@@ -20,3 +20,8 @@ Through this implementation, I gained a deeper understanding of handling HTTP re
 # REFLECTION NOTES - COMMIT 4
 
 In this milestone, I simulated a slow response by adding a 10-second delay when accessing the /sleep endpoint. While handling this request, the server pauses execution, causing the response to be delayed. However, the server still processes other requests before the delay if they arrive first. This demonstrates a key limitation of single-threaded servers—requests are handled sequentially, and long-running tasks can slow down subsequent ones. To improve performance, multithreading is needed to handle multiple requests in parallel. Implementing this will enhance user experience by making it smoother.
+
+# REFLECTION NOTES - COMMIT 5
+In this milestone, I improved the web server by implementing a ThreadPool to handle multiple requests concurrently. Previously, the server was single-threaded, meaning it could only process one request at a time. If a request took too long, such as with the /sleep endpoint, all other incoming requests would be blocked until the current one finished.
+
+By introducing a ThreadPool, the server can now create a pool of worker threads that execute requests in parallel instead of sequentially. When a request arrives, it is assigned to an available worker thread, preventing long-running requests from delaying others. This significantly improves performance, especially when handling multiple users simultaneously.
