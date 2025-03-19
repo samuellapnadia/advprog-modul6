@@ -16,3 +16,7 @@ Here, I improved the handle_connection function by introducing request validatio
 The key change was extracting the first request line and checking if it matches "GET / HTTP/1.1". If the request is valid, the server responds with hello.html; otherwise, it returns a 404.html page with a "404 Not Found" status. This change ensures that the server can handle unknown paths in a better way instead of always displaying the same content.
 
 Through this implementation, I gained a deeper understanding of handling HTTP requests dynamically in Rust. It is important to correctly parse the request and structure the response headers to follow proper HTTP standards. I also learned the importance of sending the correct status codes and content types, which are essential for web development.
+
+# REFLECTION NOTES - COMMIT 4
+
+In this milestone, I simulated a slow response by adding a 10-second delay when accessing the /sleep endpoint. While handling this request, the server pauses execution, causing the response to be delayed. However, the server still processes other requests before the delay if they arrive first. This demonstrates a key limitation of single-threaded servers—requests are handled sequentially, and long-running tasks can slow down subsequent ones. To improve performance, multithreading is needed to handle multiple requests in parallel. Implementing this will enhance user experience by making it smoother.
