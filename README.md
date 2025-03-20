@@ -1,12 +1,16 @@
 # MODULE 6
 
 # REFLECTION NOTES - COMMIT 1
-I implemented the handle_connection function to manage incoming HTTP requests. The function reads and processes request lines from a TcpStream, stopping when an empty line is encountered. Running the program and accessing it from the browser confirms that the server correctly receives and logs the request headers.
+In this commit, I implemented the handle_connection function to manage incoming HTTP requests. The function reads and processes request lines from a TcpStream, stopping when an empty line is encountered, which signifies the end of the HTTP request headers. This approach allows the server to correctly extract and store request data for further processing.
+
+To verify its functionality, I ran the program and accessed the server from a browser. The console output displayed the parsed request headers, confirming that the server successfully captured details such as the HTTP method, requested path, and various header fields. This implementation lays the foundation for further enhancements, such as serving dynamic responses based on request content.
 
 # REFLECTION NOTES - COMMIT 2
 ![Commit 2 screen capture](/assets/images/commit2.png)
 
-I updated the handle_connection function to return a simple HTML page to the browser. This implementation involves reading the hello.html file and sending it as an HTTP response with the appropriate headers. By adding the Content-Length header, the browser can properly interpret the content length. 
+In this commit, I enhanced the handle_connection function to generate and return a simple HTML page to the browser. Previously, the server only logged incoming requests without responding meaningfully. Now, by reading the hello.html file and serving it as an HTTP response, the server can properly interact with web clients.
+
+To ensure correct rendering, I included the Content-Length header in the response, allowing the browser to determine the size of the incoming content. This change is essential for maintaining proper HTTP communication, ensuring that clients can load the page without issues. Testing the implementation by accessing the server in a browser confirmed that the page loads correctly.
 
 # REFLECTION NOTES - COMMIT 3
 ![Commit 3 screen capture](/assets/images/commit3.png)
@@ -25,3 +29,8 @@ In this milestone, I simulated a slow response by adding a 10-second delay when 
 In this milestone, I improved the web server by implementing a ThreadPool to handle multiple requests concurrently. Previously, the server was single-threaded, meaning it could only process one request at a time. If a request took too long, such as with the /sleep endpoint, all other incoming requests would be blocked until the current one finished.
 
 By introducing a ThreadPool, the server can now create a pool of worker threads that execute requests in parallel instead of sequentially. When a request arrives, it is assigned to an available worker thread, preventing long-running requests from delaying others. This significantly improves performance, especially when handling multiple users simultaneously.
+
+# REFLECTION NOTES - BONUS
+In this bonus commit, I refactored the new function by renaming it to build, enhancing clarity and readability. The original function name, new, while functional, was somewhat generic and did not clearly convey its purpose. The new name, build, makes it more intuitive that this function is responsible for constructing a ThreadPool instance from scratch. Alongside this change, I updated its usage in main.rs to ensure consistency across the codebase.
+
+This small yet meaningful adjustment improves both code maintainability and readability, making it easier for future contributors to understand its role at a glance. This reinforced the importance of thoughtful naming conventions, as they play a crucial role in writing clean and maintainable code. This adjustment also ensures that the code remains intuitive and easy to work with as the project evolves.
